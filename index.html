@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Control de PINES · Probabilidad de éxito</title>
+    <title>Control de PINES · Neon Dark</title>
     <style>
-        /* Reset & base */
+        /* Reset y base oscura */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,8 +13,8 @@
         }
         body {
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: #f5f7fb;
-            color: #1e293b;
+            background: #0b0f1a;
+            color: #e0e8f0;
             padding: 1.5rem;
             min-height: 100vh;
             display: flex;
@@ -23,10 +23,10 @@
         .container {
             max-width: 1300px;
             width: 100%;
-            background: white;
-            border-radius: 2rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            background: #141a26;
+            border-radius: 1.8rem;
             padding: 2rem 2rem 2.5rem;
+            border: 1px solid #2a3344;
         }
         h1 {
             font-size: 2.4rem;
@@ -36,33 +36,38 @@
             align-items: center;
             gap: 0.8rem;
             flex-wrap: wrap;
+            color: #f0f4ff;
         }
         h1 span {
-            background: #eef2ff;
-            color: #4f46e5;
+            background: #1f2a3a;
+            color: #00f0c0;
             font-size: 1rem;
             font-weight: 600;
             padding: 0.2rem 1.2rem;
             border-radius: 40px;
+            border: 1px solid #00f0c0;
+            box-shadow: 0 0 8px rgba(0, 240, 192, 0.2);
         }
         .subtitle {
-            color: #64748b;
+            color: #a0b4cc;
             margin-top: 0.3rem;
             margin-bottom: 2rem;
             font-size: 1.05rem;
-            border-left: 4px solid #818cf8;
+            border-left: 4px solid #00d4ff;
             padding-left: 1rem;
+            background: linear-gradient(90deg, rgba(0,212,255,0.08) 0%, transparent 80%);
         }
         .stats-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 1.2rem 2.5rem;
-            background: #f8fafc;
+            background: #10161f;
             padding: 1.2rem 1.8rem;
             border-radius: 1.2rem;
             margin-bottom: 2.2rem;
             align-items: center;
             justify-content: space-between;
+            border: 1px solid #2a3344;
         }
         .stats {
             display: flex;
@@ -76,31 +81,34 @@
         }
         .stat-item .label {
             font-weight: 500;
-            color: #475569;
+            color: #8899bb;
         }
         .stat-item .value {
             font-weight: 700;
             font-size: 1.4rem;
-            color: #0f172a;
+            color: #f0f4ff;
         }
-        .stat-item .value.pending { color: #dc2626; }
-        .stat-item .value.tested { color: #16a34a; }
+        .stat-item .value.pending { color: #ff6b6b; }
+        .stat-item .value.tested { color: #00f0a0; }
         .btn-reset {
-            background: #fee2e2;
-            color: #b91c1c;
-            border: none;
+            background: #2a1f2f;
+            color: #ff7b9c;
+            border: 1px solid #ff7b9c;
             padding: 0.5rem 1.6rem;
             border-radius: 40px;
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: background 0.1s, color 0.1s;
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
+            box-shadow: 0 0 12px rgba(255, 123, 156, 0.15);
         }
-        .btn-reset:hover { background: #fecaca; transform: scale(1.02); }
-        .btn-reset:active { transform: scale(0.97); }
+        .btn-reset:hover {
+            background: #ff7b9c;
+            color: #141a26;
+        }
 
         .section-title {
             font-size: 1.6rem;
@@ -109,14 +117,17 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            color: #d0dcf0;
         }
         .section-title .badge {
-            background: #e2e8f0;
+            background: #1f2a3a;
             padding: 0.1rem 1rem;
             border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 500;
-            color: #334155;
+            color: #00d4ff;
+            border: 1px solid #00d4ff;
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.15);
         }
 
         /* Grid de PINs */
@@ -128,21 +139,19 @@
         }
 
         .pin-card {
-            background: #ffffff;
-            border: 2px solid #e9edf2;
+            background: #1a2230;
+            border: 2px solid #2a3346;
             border-radius: 1rem;
             padding: 0.6rem 0.2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.15s ease;
             user-select: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 80px;
+            transition: background 0.1s, border-color 0.1s, opacity 0.1s;
         }
         .pin-card .pin-code {
             font-size: 1.3rem;
@@ -150,40 +159,39 @@
             font-family: 'Courier New', monospace;
             letter-spacing: 0.5px;
             line-height: 1.4;
+            color: #e0e8f0;
         }
         .pin-card .probability {
             font-size: 0.7rem;
-            color: #64748b;
-            background: #f1f5f9;
+            color: #8899bb;
+            background: #0f1620;
             padding: 0.1rem 0.5rem;
             border-radius: 20px;
             margin-top: 0.2rem;
             font-weight: 500;
-            transition: 0.2s;
+            border: 1px solid #2a3344;
         }
         .pin-card:hover:not(.tested) {
-            border-color: #a5b4fc;
-            background: #f8faff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(79,70,229,0.08);
+            background: #1f2a3a;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
         }
         .pin-card.tested {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-            color: #94a3b8;
+            background: #111822;
+            border-color: #2a3344;
+            opacity: 0.6;
             cursor: default;
-            opacity: 0.7;
-            transform: none;
-            box-shadow: none;
         }
         .pin-card.tested .pin-code {
             text-decoration: line-through;
-            text-decoration-color: #94a3b8;
+            text-decoration-color: #667;
             text-decoration-thickness: 2px;
+            color: #667;
         }
         .pin-card.tested .probability {
-            background: #e2e8f0;
-            color: #94a3b8;
+            background: #0a0f16;
+            color: #445;
+            border-color: #2a3344;
         }
         .pin-card.tested::after {
             content: "✓";
@@ -191,31 +199,30 @@
             top: 4px;
             right: 8px;
             font-size: 1.2rem;
-            color: #22c55e;
+            color: #00f0a0;
             font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 240, 160, 0.3);
         }
-
-        .empty-message {
-            grid-column: 1 / -1;
-            text-align: center;
-            color: #94a3b8;
-            padding: 2rem 0;
-            font-style: italic;
+        .pin-card {
+            position: relative;
         }
 
         .footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #2a3344;
             font-size: 0.85rem;
-            color: #94a3b8;
+            color: #668;
             text-align: center;
         }
         .footer a {
-            color: #4f46e5;
+            color: #00d4ff;
             text-decoration: none;
         }
-        .footer a:hover { text-decoration: underline; }
+        .footer a:hover {
+            text-decoration: underline;
+            color: #00f0c0;
+        }
 
         @media (max-width: 640px) {
             .container { padding: 1.2rem; }
@@ -236,10 +243,10 @@
     <header>
         <h1>
             🔐 Control de PINES
-            <span>Top mundial + Probabilidad</span>
+            <span>Top + Probabilidad</span>
         </h1>
         <div class="subtitle">
-            Marca los PINs que ya has probado. La probabilidad de éxito se basa en su frecuencia real (más común → mayor %).
+            Marca los PINs ya probados. Probabilidad de éxito basada en frecuencia real.
         </div>
     </header>
 
@@ -249,7 +256,7 @@
             <div class="stat-item"><span class="label">✅ Probados:</span><span class="value tested" id="testedCount">0</span></div>
             <div class="stat-item"><span class="label">📊 Total:</span><span class="value" id="totalCount">0</span></div>
         </div>
-        <button class="btn-reset" id="resetBtn">🔄 Reiniciar todo</button>
+        <button class="btn-reset" id="resetBtn">⟳ Reiniciar todo</button>
     </div>
 
     <!-- Sección 4 dígitos -->
@@ -267,9 +274,8 @@
     <div class="pin-grid" id="grid6"></div>
 
     <div class="footer">
-        Datos basados en estudios de seguridad y filtraciones reales (DataGenetics, etc.).
-        <br />Probabilidad calculada a partir del ranking de frecuencia.
-        <br /><span style="opacity:0.6;">v2.0 — GitHub</span>
+        Datos reales · Probabilidad por ranking · <span style="color:#00d4ff;">Neon Dark</span>
+        <br /><span style="opacity:0.5;">v2.0 — GitHub</span>
     </div>
 </div>
 
@@ -277,40 +283,23 @@
     (function() {
         'use strict';
 
-        // ------------------------------------------------------------
-        // LISTAS DE PINES MÁS COMUNES (ordenados de más a menos común)
-        // ------------------------------------------------------------
         const PIN_4 = [
-            '1234', '0000', '2580', '1111', '5555',
-            '5683', '0852', '2222', '1212', '1998',
-            '6969', '1122', '1313', '2001', '1010',
-            '7777', '9999', '3333', '4444', '6666',
-            '1818', '1984', '1112', '1004', '2000',
-            '2013', '2020', '1230', '1235', '4321',
-            '1020', '1123', '1221', '2112', '1515',
-            '1414', '1616', '1717', '1820', '1919',
-            '3003', '4004', '5005', '6006', '7007',
-            '8008', '9009', '0101', '0202', '0303'
+            '1234','0000','2580','1111','5555','5683','0852','2222','1212','1998',
+            '6969','1122','1313','2001','1010','7777','9999','3333','4444','6666',
+            '1818','1984','1112','1004','2000','2013','2020','1230','1235','4321',
+            '1020','1123','1221','2112','1515','1414','1616','1717','1820','1919',
+            '3003','4004','5005','6006','7007','8008','9009','0101','0202','0303'
         ];
-
         const PIN_6 = [
-            '123456', '000000', '111111', '123123', '654321',
-            '121212', '222222', '333333', '444444', '555555',
-            '666666', '777777', '888888', '999999', '112233',
-            '123321', '111222', '222111', '123789', '987654',
-            '111112', '000001', '100000', '123450', '101010',
-            '010101', '121314', '141414', '151515', '161616',
-            '171717', '181818', '191919', '202020', '212121',
-            '232323', '242424', '252525', '262626', '272727',
-            '282828', '292929', '303030', '313131', '323232',
-            '333666', '444111', '555000', '666333', '777000'
+            '123456','000000','111111','123123','654321','121212','222222','333333',
+            '444444','555555','666666','777777','888888','999999','112233','123321',
+            '111222','222111','123789','987654','111112','000001','100000','123450',
+            '101010','010101','121314','141414','151515','161616','171717','181818',
+            '191919','202020','212121','232323','242424','252525','262626','272727',
+            '282828','292929','303030','313131','323232','333666','444111','555000',
+            '666333','777000'
         ];
 
-        // ------------------------------------------------------------
-        // Cálculo de probabilidad (basado en ranking: más común = mayor %)
-        // Usamos una distribución de Pareto simplificada: peso = 1/(i+1)^0.8
-        // y normalizamos para que sume 100.
-        // ------------------------------------------------------------
         function computeProbabilities(list) {
             const n = list.length;
             const weights = list.map((_, i) => 1 / Math.pow(i + 1, 0.8));
@@ -321,9 +310,6 @@
         const probs4 = computeProbabilities(PIN_4);
         const probs6 = computeProbabilities(PIN_6);
 
-        // ------------------------------------------------------------
-        // ESTADO (localStorage)
-        // ------------------------------------------------------------
         const STORAGE_KEY = 'pinTrackerState';
 
         function loadState() {
@@ -341,7 +327,6 @@
         function initState() {
             const existing = loadState();
             if (existing && typeof existing === 'object') {
-                // Asegurar que existan todas las claves
                 let modified = false;
                 [PIN_4, PIN_6].forEach((list, idx) => {
                     const key = idx === 0 ? '4' : '6';
@@ -366,9 +351,6 @@
 
         let state = initState();
 
-        // ------------------------------------------------------------
-        // RENDER
-        // ------------------------------------------------------------
         function render() {
             renderGrid('4', PIN_4, probs4);
             renderGrid('6', PIN_6, probs6);
@@ -427,9 +409,6 @@
             document.getElementById('totalCount').textContent = total;
         }
 
-        // ------------------------------------------------------------
-        // RESET
-        // ------------------------------------------------------------
         function resetAll() {
             if (!confirm('¿Marcar todos los PINs como NO probados?')) return;
             PIN_4.forEach(p => state['4'][p] = false);
@@ -438,9 +417,6 @@
             render();
         }
 
-        // ------------------------------------------------------------
-        // INICIO
-        // ------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', function() {
             render();
             document.getElementById('resetBtn').addEventListener('click', resetAll);
