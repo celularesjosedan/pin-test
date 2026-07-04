@@ -152,30 +152,37 @@
             justify-content: center;
             min-height: 80px;
             transition: background 0.1s, border-color 0.1s, opacity 0.1s;
+            position: relative;
         }
+        /* PIN code: blanco brillante */
         .pin-card .pin-code {
             font-size: 1.3rem;
             font-weight: 700;
             font-family: 'Courier New', monospace;
             letter-spacing: 0.5px;
             line-height: 1.4;
-            color: #e0e8f0;
+            color: #ffffff; /* blanco puro */
+            text-shadow: 0 0 6px rgba(255,255,255,0.2);
         }
+        /* Probabilidad: verde neón */
         .pin-card .probability {
             font-size: 0.7rem;
-            color: #8899bb;
+            color: #00ffaa; /* verde neón */
             background: #0f1620;
             padding: 0.1rem 0.5rem;
             border-radius: 20px;
             margin-top: 0.2rem;
-            font-weight: 500;
-            border: 1px solid #2a3344;
+            font-weight: 600;
+            border: 1px solid #00ffaa;
+            box-shadow: 0 0 12px rgba(0, 255, 170, 0.2);
+            text-shadow: 0 0 6px rgba(0,255,170,0.4);
         }
         .pin-card:hover:not(.tested) {
             background: #1f2a3a;
             border-color: #00d4ff;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
         }
+        /* PINs probados */
         .pin-card.tested {
             background: #111822;
             border-color: #2a3344;
@@ -186,12 +193,15 @@
             text-decoration: line-through;
             text-decoration-color: #667;
             text-decoration-thickness: 2px;
-            color: #667;
+            color: #8899bb; /* gris azulado para los tachados */
+            text-shadow: none;
         }
         .pin-card.tested .probability {
             background: #0a0f16;
-            color: #445;
+            color: #445566;
             border-color: #2a3344;
+            box-shadow: none;
+            text-shadow: none;
         }
         .pin-card.tested::after {
             content: "✓";
@@ -202,9 +212,6 @@
             color: #00f0a0;
             font-weight: 700;
             text-shadow: 0 0 10px rgba(0, 240, 160, 0.3);
-        }
-        .pin-card {
-            position: relative;
         }
 
         .footer {
