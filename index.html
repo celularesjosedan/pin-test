@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Control de PINES · Neon Dark</title>
+    <title>Control de PINES · Probabilidad de éxito</title>
     <style>
-        /* Reset y base oscura */
+        /* Reset & base */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,8 +13,8 @@
         }
         body {
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: #0b0f1a;
-            color: #e0e8f0;
+            background: #f5f7fb;
+            color: #1e293b;
             padding: 1.5rem;
             min-height: 100vh;
             display: flex;
@@ -23,10 +23,10 @@
         .container {
             max-width: 1300px;
             width: 100%;
-            background: #141a26;
-            border-radius: 1.8rem;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
             padding: 2rem 2rem 2.5rem;
-            border: 1px solid #2a3344;
         }
         h1 {
             font-size: 2.4rem;
@@ -36,38 +36,33 @@
             align-items: center;
             gap: 0.8rem;
             flex-wrap: wrap;
-            color: #f0f4ff;
         }
         h1 span {
-            background: #1f2a3a;
-            color: #00f0c0;
+            background: #eef2ff;
+            color: #4f46e5;
             font-size: 1rem;
             font-weight: 600;
             padding: 0.2rem 1.2rem;
             border-radius: 40px;
-            border: 1px solid #00f0c0;
-            box-shadow: 0 0 8px rgba(0, 240, 192, 0.2);
         }
         .subtitle {
-            color: #a0b4cc;
+            color: #64748b;
             margin-top: 0.3rem;
             margin-bottom: 2rem;
             font-size: 1.05rem;
-            border-left: 4px solid #00d4ff;
+            border-left: 4px solid #818cf8;
             padding-left: 1rem;
-            background: linear-gradient(90deg, rgba(0,212,255,0.08) 0%, transparent 80%);
         }
         .stats-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 1.2rem 2.5rem;
-            background: #10161f;
+            background: #f8fafc;
             padding: 1.2rem 1.8rem;
             border-radius: 1.2rem;
             margin-bottom: 2.2rem;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid #2a3344;
         }
         .stats {
             display: flex;
@@ -81,34 +76,31 @@
         }
         .stat-item .label {
             font-weight: 500;
-            color: #8899bb;
+            color: #475569;
         }
         .stat-item .value {
             font-weight: 700;
             font-size: 1.4rem;
-            color: #f0f4ff;
+            color: #0f172a;
         }
-        .stat-item .value.pending { color: #ff6b6b; }
-        .stat-item .value.tested { color: #00f0a0; }
+        .stat-item .value.pending { color: #dc2626; }
+        .stat-item .value.tested { color: #16a34a; }
         .btn-reset {
-            background: #2a1f2f;
-            color: #ff7b9c;
-            border: 1px solid #ff7b9c;
+            background: #fee2e2;
+            color: #b91c1c;
+            border: none;
             padding: 0.5rem 1.6rem;
             border-radius: 40px;
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: background 0.1s, color 0.1s;
+            transition: 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            box-shadow: 0 0 12px rgba(255, 123, 156, 0.15);
         }
-        .btn-reset:hover {
-            background: #ff7b9c;
-            color: #141a26;
-        }
+        .btn-reset:hover { background: #fecaca; transform: scale(1.02); }
+        .btn-reset:active { transform: scale(0.97); }
 
         .section-title {
             font-size: 1.6rem;
@@ -117,17 +109,14 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            color: #d0dcf0;
         }
         .section-title .badge {
-            background: #1f2a3a;
+            background: #e2e8f0;
             padding: 0.1rem 1rem;
             border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 500;
-            color: #00d4ff;
-            border: 1px solid #00d4ff;
-            box-shadow: 0 0 8px rgba(0, 212, 255, 0.15);
+            color: #334155;
         }
 
         /* Grid de PINs */
@@ -139,69 +128,62 @@
         }
 
         .pin-card {
-            background: #1a2230;
-            border: 2px solid #2a3346;
+            background: #ffffff;
+            border: 2px solid #e9edf2;
             border-radius: 1rem;
             padding: 0.6rem 0.2rem;
             text-align: center;
             cursor: pointer;
+            transition: all 0.15s ease;
             user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 80px;
-            transition: background 0.1s, border-color 0.1s, opacity 0.1s;
-            position: relative;
         }
-        /* PIN code: blanco brillante */
         .pin-card .pin-code {
             font-size: 1.3rem;
             font-weight: 700;
             font-family: 'Courier New', monospace;
             letter-spacing: 0.5px;
             line-height: 1.4;
-            color: #ffffff; /* blanco puro */
-            text-shadow: 0 0 6px rgba(255,255,255,0.2);
         }
-        /* Probabilidad: verde neón */
         .pin-card .probability {
             font-size: 0.7rem;
-            color: #00ffaa; /* verde neón */
-            background: #0f1620;
+            color: #64748b;
+            background: #f1f5f9;
             padding: 0.1rem 0.5rem;
             border-radius: 20px;
             margin-top: 0.2rem;
-            font-weight: 600;
-            border: 1px solid #00ffaa;
-            box-shadow: 0 0 12px rgba(0, 255, 170, 0.2);
-            text-shadow: 0 0 6px rgba(0,255,170,0.4);
+            font-weight: 500;
+            transition: 0.2s;
         }
         .pin-card:hover:not(.tested) {
-            background: #1f2a3a;
-            border-color: #00d4ff;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+            border-color: #a5b4fc;
+            background: #f8faff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(79,70,229,0.08);
         }
-        /* PINs probados */
         .pin-card.tested {
-            background: #111822;
-            border-color: #2a3344;
-            opacity: 0.6;
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #94a3b8;
             cursor: default;
+            opacity: 0.7;
+            transform: none;
+            box-shadow: none;
         }
         .pin-card.tested .pin-code {
             text-decoration: line-through;
-            text-decoration-color: #667;
+            text-decoration-color: #94a3b8;
             text-decoration-thickness: 2px;
-            color: #8899bb; /* gris azulado para los tachados */
-            text-shadow: none;
         }
         .pin-card.tested .probability {
-            background: #0a0f16;
-            color: #445566;
-            border-color: #2a3344;
-            box-shadow: none;
-            text-shadow: none;
+            background: #e2e8f0;
+            color: #94a3b8;
         }
         .pin-card.tested::after {
             content: "✓";
@@ -209,27 +191,31 @@
             top: 4px;
             right: 8px;
             font-size: 1.2rem;
-            color: #00f0a0;
+            color: #22c55e;
             font-weight: 700;
-            text-shadow: 0 0 10px rgba(0, 240, 160, 0.3);
+        }
+
+        .empty-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #94a3b8;
+            padding: 2rem 0;
+            font-style: italic;
         }
 
         .footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
-            border-top: 1px solid #2a3344;
+            border-top: 1px solid #e2e8f0;
             font-size: 0.85rem;
-            color: #668;
+            color: #94a3b8;
             text-align: center;
         }
         .footer a {
-            color: #00d4ff;
+            color: #4f46e5;
             text-decoration: none;
         }
-        .footer a:hover {
-            text-decoration: underline;
-            color: #00f0c0;
-        }
+        .footer a:hover { text-decoration: underline; }
 
         @media (max-width: 640px) {
             .container { padding: 1.2rem; }
@@ -243,19 +229,46 @@
         @media (max-width: 400px) {
             .pin-grid { grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); }
         }
-    </style>
+    
+        .helper-note {
+            margin: 1rem 0 0;
+            background: #ecfeff;
+            border: 1px solid #bae6fd;
+            color: #155e75;
+            padding: 0.9rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.95rem;
+        }
+        .section-desc {
+            color: #64748b;
+            margin: -0.3rem 0 1rem;
+            font-size: 0.95rem;
+        }
+        .pin-card.priority {
+            border-color: #99f6e4;
+            background: #f0fdfa;
+        }
+        .pin-card.priority .probability {
+            background: #ccfbf1;
+            color: #0f766e;
+            font-weight: 700;
+        }
+
+</style>
 </head>
 <body>
 <div class="container" id="app">
     <header>
         <h1>
             🔐 Control de PINES
-            <span>Top + Probabilidad</span>
+            <span>Uso real + orden práctico</span>
         </h1>
         <div class="subtitle">
-            Marca los PINs ya probados. Probabilidad de éxito basada en frecuencia real.
+            Marca los PINes que ya probaste. La lista prioriza combinaciones humanas frecuentes: secuencias simples, repetidos, fechas probables y patrones de teclado.
         </div>
     </header>
+
+    <div class="helper-note">Empieza por los primeros PINes de cada bloque: son los más típicos en equipos reales por costumbre humana, fechas y secuencias fáciles de recordar.</div>
 
     <div class="stats-grid">
         <div class="stats">
@@ -263,7 +276,7 @@
             <div class="stat-item"><span class="label">✅ Probados:</span><span class="value tested" id="testedCount">0</span></div>
             <div class="stat-item"><span class="label">📊 Total:</span><span class="value" id="totalCount">0</span></div>
         </div>
-        <button class="btn-reset" id="resetBtn">⟳ Reiniciar todo</button>
+        <button class="btn-reset" id="resetBtn">🔄 Reiniciar todo</button>
     </div>
 
     <!-- Sección 4 dígitos -->
@@ -271,6 +284,7 @@
         <span>4 Dígitos</span>
         <span class="badge" id="badge4">0 pendientes</span>
     </div>
+    <div class="section-desc">Primero van secuencias simples, repetidos, años comunes y patrones de teclado.</div>
     <div class="pin-grid" id="grid4"></div>
 
     <!-- Sección 6 dígitos -->
@@ -278,11 +292,13 @@
         <span>6 Dígitos</span>
         <span class="badge" id="badge6">0 pendientes</span>
     </div>
+    <div class="section-desc">Incluye secuencias obvias, dobles, fechas tipo DDMMAA y combinaciones muy repetidas.</div>
     <div class="pin-grid" id="grid6"></div>
 
     <div class="footer">
-        Datos reales · Probabilidad por ranking · <span style="color:#00d4ff;">Neon Dark</span>
-        <br /><span style="opacity:0.5;">v2.0 — GitHub</span>
+        Lista orientada a trabajo de taller, usando patrones de uso humano frecuentes y referencias públicas de seguridad.
+        <br />La probabilidad sigue siendo estimada según el orden del ranking.
+        <br /><span style="opacity:0.6;">v2.0 — GitHub</span>
     </div>
 </div>
 
@@ -290,23 +306,40 @@
     (function() {
         'use strict';
 
-        const PIN_4 = [
-            '1234','0000','2580','1111','5555','5683','0852','2222','1212','1998',
-            '6969','1122','1313','2001','1010','7777','9999','3333','4444','6666',
-            '1818','1984','1112','1004','2000','2013','2020','1230','1235','4321',
-            '1020','1123','1221','2112','1515','1414','1616','1717','1820','1919',
-            '3003','4004','5005','6006','7007','8008','9009','0101','0202','0303'
-        ];
-        const PIN_6 = [
-            '123456','000000','111111','123123','654321','121212','222222','333333',
-            '444444','555555','666666','777777','888888','999999','112233','123321',
-            '111222','222111','123789','987654','111112','000001','100000','123450',
-            '101010','010101','121314','141414','151515','161616','171717','181818',
-            '191919','202020','212121','232323','242424','252525','262626','272727',
-            '282828','292929','303030','313131','323232','333666','444111','555000',
-            '666333','777000'
+        // ------------------------------------------------------------
+        // LISTAS DE PINES MÁS COMUNES (ordenados de más a menos común)
+        // ------------------------------------------------------------
+                const PIN_4 = [
+            '1234', '0000', '1111', '1212', '7777',
+            '1004', '2000', '4444', '2222', '6969',
+            '9999', '3333', '5555', '6666', '1122',
+            '1313', '4321', '2001', '1010', '2580',
+            '2586', '2589', '0852', '1998', '1984',
+            '1990', '1995', '1980', '2002', '2010',
+            '1818', '1717', '1616', '1515', '1414',
+            '1221', '2112', '1123', '1230', '1235',
+            '0101', '0202', '0303', '4545', '7878',
+            '9898', '2468', '3579', '1590', '1342'
         ];
 
+                const PIN_6 = [
+            '123456', '000000', '111111', '123123', '121212',
+            '654321', '222222', '333333', '444444', '555555',
+            '666666', '777777', '888888', '999999', '112233',
+            '123321', '111222', '222111', '123789', '987654',
+            '101010', '010101', '123450', '000001', '100000',
+            '147258', '258369', '159753', '321321', '123000',
+            '000123', '999000', '101112', '112211', '445566',
+            '010190', '010199', '311299', '200000', '199999',
+            '121314', '141414', '151515', '161616', '171717',
+            '181818', '191919', '202020', '212121', '232323'
+        ];
+
+        // ------------------------------------------------------------
+        // Cálculo de probabilidad (basado en ranking: más común = mayor %)
+        // Usamos una distribución de Pareto simplificada: peso = 1/(i+1)^0.8
+        // y normalizamos para que sume 100.
+        // ------------------------------------------------------------
         function computeProbabilities(list) {
             const n = list.length;
             const weights = list.map((_, i) => 1 / Math.pow(i + 1, 0.8));
@@ -317,23 +350,47 @@
         const probs4 = computeProbabilities(PIN_4);
         const probs6 = computeProbabilities(PIN_6);
 
+        // ------------------------------------------------------------
+        // ESTADO (localStorage)
+        // ------------------------------------------------------------
         const STORAGE_KEY = 'pinTrackerState';
+        let memoryState = null;
+
+        function storageAvailable() {
+            try {
+                const key = '__pin_test__';
+                localStorage.setItem(key, '1');
+                localStorage.removeItem(key);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        const CAN_USE_STORAGE = storageAvailable();
 
         function loadState() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                try { return JSON.parse(stored); } catch (e) { return null; }
+            if (CAN_USE_STORAGE) {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    try { return JSON.parse(stored); } catch (e) { return null; }
+                }
             }
-            return null;
+            return memoryState;
         }
 
         function saveState(state) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            if (CAN_USE_STORAGE) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } else {
+                memoryState = JSON.parse(JSON.stringify(state));
+            }
         }
 
         function initState() {
             const existing = loadState();
             if (existing && typeof existing === 'object') {
+                // Asegurar que existan todas las claves
                 let modified = false;
                 [PIN_4, PIN_6].forEach((list, idx) => {
                     const key = idx === 0 ? '4' : '6';
@@ -358,6 +415,9 @@
 
         let state = initState();
 
+        // ------------------------------------------------------------
+        // RENDER
+        // ------------------------------------------------------------
         function render() {
             renderGrid('4', PIN_4, probs4);
             renderGrid('6', PIN_6, probs6);
@@ -379,7 +439,8 @@
                 const tested = pinState[pin] || false;
                 const prob = probs[index];
                 const probStr = prob.toFixed(2) + '%';
-                const classes = 'pin-card' + (tested ? ' tested' : '');
+                const priority = index < 10 ? ' priority' : '';
+                const classes = 'pin-card' + priority + (tested ? ' tested' : '');
                 html += `<div class="${classes}" data-digits="${digits}" data-pin="${pin}">
                             <div class="pin-code">${pin}</div>
                             <div class="probability">${probStr}</div>
@@ -416,6 +477,9 @@
             document.getElementById('totalCount').textContent = total;
         }
 
+        // ------------------------------------------------------------
+        // RESET
+        // ------------------------------------------------------------
         function resetAll() {
             if (!confirm('¿Marcar todos los PINs como NO probados?')) return;
             PIN_4.forEach(p => state['4'][p] = false);
@@ -424,6 +488,9 @@
             render();
         }
 
+        // ------------------------------------------------------------
+        // INICIO
+        // ------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', function() {
             render();
             document.getElementById('resetBtn').addEventListener('click', resetAll);
