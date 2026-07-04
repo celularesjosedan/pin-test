@@ -13,8 +13,8 @@
         }
         body {
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: #f5f7fb;
-            color: #1e293b;
+            background: radial-gradient(circle at top, #12303a 0%, #0b1117 32%, #070b10 100%);
+            color: #e6faff;
             padding: 1.5rem;
             min-height: 100vh;
             display: flex;
@@ -23,9 +23,9 @@
         .container {
             max-width: 1300px;
             width: 100%;
-            background: white;
+            background: rgba(10, 16, 24, 0.9);
             border-radius: 2rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.14), 0 18px 60px rgba(0,0,0,0.48), 0 0 38px rgba(34, 211, 238, 0.08);
             padding: 2rem 2rem 2.5rem;
         }
         h1 {
@@ -38,26 +38,26 @@
             flex-wrap: wrap;
         }
         h1 span {
-            background: #eef2ff;
-            color: #4f46e5;
+            background: rgba(34, 211, 238, 0.14);
+            color: #67e8f9;
             font-size: 1rem;
             font-weight: 600;
             padding: 0.2rem 1.2rem;
             border-radius: 40px;
         }
         .subtitle {
-            color: #64748b;
+            color: #9fb7c3;
             margin-top: 0.3rem;
             margin-bottom: 2rem;
             font-size: 1.05rem;
-            border-left: 4px solid #818cf8;
+            border-left: 4px solid #22d3ee;
             padding-left: 1rem;
         }
         .stats-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 1.2rem 2.5rem;
-            background: #f8fafc;
+            background: rgba(8, 14, 22, 0.88);
             padding: 1.2rem 1.8rem;
             border-radius: 1.2rem;
             margin-bottom: 2.2rem;
@@ -76,18 +76,18 @@
         }
         .stat-item .label {
             font-weight: 500;
-            color: #475569;
+            color: #c7dbe6;
         }
         .stat-item .value {
             font-weight: 700;
             font-size: 1.4rem;
-            color: #0f172a;
+            color: #ecfeff;
         }
         .stat-item .value.pending { color: #dc2626; }
         .stat-item .value.tested { color: #16a34a; }
         .btn-reset {
-            background: #fee2e2;
-            color: #b91c1c;
+            background: rgba(127, 29, 29, 0.22);
+            color: #fecaca;
             border: none;
             padding: 0.5rem 1.6rem;
             border-radius: 40px;
@@ -99,7 +99,7 @@
             align-items: center;
             gap: 0.4rem;
         }
-        .btn-reset:hover { background: #fecaca; transform: scale(1.02); }
+        .btn-reset:hover { background: rgba(153, 27, 27, 0.34); transform: scale(1.02); }
         .btn-reset:active { transform: scale(0.97); }
 
         .section-title {
@@ -111,12 +111,12 @@
             gap: 0.8rem;
         }
         .section-title .badge {
-            background: #e2e8f0;
+            background: rgba(34, 211, 238, 0.12);
             padding: 0.1rem 1rem;
             border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 500;
-            color: #334155;
+            color: #b6f7ff;
         }
 
         /* Grid de PINs */
@@ -128,15 +128,15 @@
         }
 
         .pin-card {
-            background: #ffffff;
-            border: 2px solid #e9edf2;
+            background: linear-gradient(180deg, rgba(10,17,26,0.96) 0%, rgba(12,21,32,0.96) 100%);
+            border: 1px solid rgba(103, 232, 249, 0.18);
             border-radius: 1rem;
             padding: 0.6rem 0.2rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.15s ease;
             user-select: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 0 0 1px rgba(34,211,238,0.04), inset 0 0 18px rgba(34,211,238,0.03), 0 8px 24px rgba(0,0,0,0.34);
             position: relative;
             display: flex;
             flex-direction: column;
@@ -147,43 +147,46 @@
         .pin-card .pin-code {
             font-size: 1.3rem;
             font-weight: 700;
-            font-family: 'Courier New', monospace;
+            font-family: 'Consolas', 'Courier New', monospace;
             letter-spacing: 0.5px;
             line-height: 1.4;
+            color: #dffcff;
+            text-shadow: 0 0 10px rgba(103,232,249,.18);
         }
         .pin-card .probability {
-            font-size: 0.7rem;
-            color: #64748b;
-            background: #f1f5f9;
-            padding: 0.1rem 0.5rem;
+            font-size: 0.74rem;
+            color: #d7f8ff;
+            background: rgba(103, 232, 249, 0.10);
+            border: 1px solid rgba(103,232,249,0.14);
+            padding: 0.14rem 0.55rem;
             border-radius: 20px;
-            margin-top: 0.2rem;
-            font-weight: 500;
+            margin-top: 0.28rem;
+            font-weight: 700;
             transition: 0.2s;
         }
         .pin-card:hover:not(.tested) {
-            border-color: #a5b4fc;
-            background: #f8faff;
+            border-color: rgba(103, 232, 249, 0.72);
+            background: linear-gradient(180deg, rgba(13,25,36,1) 0%, rgba(18,34,47,1) 100%);
             transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(79,70,229,0.08);
+            box-shadow: 0 0 0 1px rgba(103,232,249,0.18), 0 0 26px rgba(34,211,238,0.18), 0 14px 28px rgba(0,0,0,0.42);
         }
         .pin-card.tested {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-            color: #94a3b8;
+            background: rgba(71, 85, 105, 0.24);
+            border-color: rgba(148, 163, 184, 0.18);
+            color: #7b93a2;
             cursor: default;
-            opacity: 0.7;
+            opacity: 0.62;
             transform: none;
             box-shadow: none;
         }
         .pin-card.tested .pin-code {
             text-decoration: line-through;
-            text-decoration-color: #94a3b8;
+            text-decoration-color: #7b93a2;
             text-decoration-thickness: 2px;
         }
         .pin-card.tested .probability {
-            background: #e2e8f0;
-            color: #94a3b8;
+            background: rgba(34, 211, 238, 0.12);
+            color: #7b93a2;
         }
         .pin-card.tested::after {
             content: "✓";
@@ -191,14 +194,14 @@
             top: 4px;
             right: 8px;
             font-size: 1.2rem;
-            color: #22c55e;
+            color: #67e8f9;
             font-weight: 700;
         }
 
         .empty-message {
             grid-column: 1 / -1;
             text-align: center;
-            color: #94a3b8;
+            color: #7b93a2;
             padding: 2rem 0;
             font-style: italic;
         }
@@ -206,13 +209,13 @@
         .footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid rgba(103, 232, 249, 0.12);
             font-size: 0.85rem;
-            color: #94a3b8;
+            color: #7b93a2;
             text-align: center;
         }
         .footer a {
-            color: #4f46e5;
+            color: #67e8f9;
             text-decoration: none;
         }
         .footer a:hover { text-decoration: underline; }
@@ -224,7 +227,15 @@
             .stats { justify-content: space-between; }
             .pin-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
             .pin-card { min-height: 70px; padding: 0.4rem 0.1rem; }
-            .pin-card .pin-code { font-size: 1rem; }
+            .pin-card .pin-code {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Consolas', 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            color: #dffcff;
+            text-shadow: 0 0 10px rgba(103,232,249,.18);
+        }
         }
         @media (max-width: 400px) {
             .pin-grid { grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); }
@@ -240,20 +251,89 @@
             font-size: 0.95rem;
         }
         .section-desc {
-            color: #64748b;
+            color: #9fb7c3;
             margin: -0.3rem 0 1rem;
             font-size: 0.95rem;
         }
         .pin-card.priority {
-            border-color: #99f6e4;
-            background: #f0fdfa;
+            border-color: rgba(103, 232, 249, 0.95);
+            background: linear-gradient(180deg, rgba(8,30,43,0.98) 0%, rgba(13,52,72,0.98) 100%);
+            box-shadow: 0 0 0 1px rgba(103,232,249,0.42), 0 0 34px rgba(34,211,238,0.24), 0 14px 28px rgba(0,0,0,.46);
         }
         .pin-card.priority .probability {
-            background: #ccfbf1;
-            color: #0f766e;
-            font-weight: 700;
+            background: rgba(103,232,249,0.22);
+            color: #ecfeff;
+            border: 1px solid rgba(103,232,249,0.35);
+            font-weight: 800;
         }
 
+
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(34,211,238,0.16), transparent 24%),
+                radial-gradient(circle at 85% 12%, rgba(34,211,238,0.10), transparent 20%),
+                radial-gradient(circle at 50% 100%, rgba(6,182,212,0.12), transparent 30%);
+            filter: blur(10px);
+        }
+        .container {
+            border: 1px solid rgba(103, 232, 249, 0.14);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: #ecfeff;
+            text-shadow: 0 0 18px rgba(34,211,238,0.12);
+        }
+        .helper-note {
+            background: rgba(8, 31, 44, 0.9);
+            border: 1px solid rgba(34, 211, 238, 0.18);
+            color: #b6f7ff;
+            box-shadow: inset 0 0 18px rgba(34,211,238,0.03);
+        }
+        .section-desc {
+            color: #89a7b5;
+        }
+        .stats-grid, .section-title .badge, .probability {
+            box-shadow: inset 0 0 14px rgba(34,211,238,0.03);
+        }
+        .pin-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            background: linear-gradient(180deg, rgba(103,232,249,0.06), transparent 38%);
+            opacity: .85;
+            pointer-events: none;
+        }
+        .pin-card .pin-code {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Consolas', 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            color: #dffcff;
+            text-shadow: 0 0 10px rgba(103,232,249,.18);
+        }
+        .pin-card.priority {
+            border-color: rgba(103, 232, 249, 0.95);
+            background: linear-gradient(180deg, rgba(8,30,43,0.98) 0%, rgba(13,52,72,0.98) 100%);
+            box-shadow: 0 0 0 1px rgba(103,232,249,0.42), 0 0 34px rgba(34,211,238,0.24), 0 14px 28px rgba(0,0,0,.46);
+        }
+        .pin-card.priority .pin-code {
+            color: #ffffff;
+            text-shadow: 0 0 22px rgba(103,232,249,.62), 0 0 8px rgba(103,232,249,.42);
+        }
+        .pin-card:hover:not(.tested) .pin-code {
+            text-shadow: 0 0 18px rgba(103,232,249,.42), 0 0 6px rgba(103,232,249,.25);
+        }
+        .btn-reset {
+            border: 1px solid rgba(248, 113, 113, 0.18);
+            box-shadow: 0 8px 20px rgba(0,0,0,.22);
+        }
 </style>
 </head>
 <body>
@@ -268,7 +348,7 @@
         </div>
     </header>
 
-    <div class="helper-note">Empieza por los primeros PINes de cada bloque: son los más típicos en equipos reales por costumbre humana, fechas y secuencias fáciles de recordar.</div>
+    
 
     <div class="stats-grid">
         <div class="stats">
@@ -284,7 +364,7 @@
         <span>4 Dígitos</span>
         <span class="badge" id="badge4">0 pendientes</span>
     </div>
-    <div class="section-desc">Primero van secuencias simples, repetidos, años comunes y patrones de teclado.</div>
+    
     <div class="pin-grid" id="grid4"></div>
 
     <!-- Sección 6 dígitos -->
@@ -292,13 +372,13 @@
         <span>6 Dígitos</span>
         <span class="badge" id="badge6">0 pendientes</span>
     </div>
-    <div class="section-desc">Incluye secuencias obvias, dobles, fechas tipo DDMMAA y combinaciones muy repetidas.</div>
+    
     <div class="pin-grid" id="grid6"></div>
 
     <div class="footer">
-        Lista orientada a trabajo de taller, usando patrones de uso humano frecuentes y referencias públicas de seguridad.
-        <br />La probabilidad sigue siendo estimada según el orden del ranking.
-        <br /><span style="opacity:0.6;">v2.0 — GitHub</span>
+        
+        <br />
+        <br /><span style="opacity:0.6;"></span>
     </div>
 </div>
 
